@@ -1,0 +1,1 @@
+data_path <- "/Users/sam-heft-neal/Library/CloudStorage/OneDrive2-SharedLibraries-BEAR/BEARLLC\ -\ Documents/Projects/California/CIty/Los\ Angeles/Living\ Wage/Updates/data"
