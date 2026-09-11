@@ -1,7 +1,7 @@
 # Import the custom LA County EDD/QCEW workplace-PUMA extract.
 # Run from the repository root. Inputs remain in the shared OneDrive data folder.
 # Outputs in memory: edd (annual source rows), emp_monthly, qtr_panel,
-# and edd_coverage. This script does not write files.
+# and edd_coverage. Clean panels are saved to data/clean in OneDrive.
 
 # Configuration and inputs -----------------------------------------------
     source("script/0-config.R")
@@ -112,3 +112,118 @@
         .groups = "drop"
     )
     print(edd_coverage, n = Inf)
+
+# Spot checks against Excel ----------------------------------------------
+# Choose one reported airport row, one reported hotel row, and one suppressed
+# row per year. Excel row numbers include the eight introductory rows and header.
+    edd_source_rows <- edd
+    edd_source_rows$excel_row <- c(
+        which(!is.na(edd_2023$PUMA) & grepl("^[0-9]{4}$", edd_2023$`4-digit NAICS`)) + 9,
+        which(!is.na(edd_2024$PUMA) & grepl("^[0-9]{4}$", edd_2024$`4-digit NAICS`)) + 9,
+        which(!is.na(edd_2025$PUMA) & grepl("^[0-9]{4}$", edd_2025$`4-digit NAICS`)) + 9
+    )
+    edd_source_rows <- dplyr::mutate(
+        edd_source_rows,
+        workbook = ifelse(year == 2025, basename(edd_update_file), basename(edd_file)),
+        sheet = as.character(year),
+        check_group = dplyr::case_when(
+            confidential == "YES" ~ "suppressed",
+            naics4 %in% c("4811", "4881") ~ "airport",
+            naics4 == "7211" ~ "hotel"
+        )
+    )
+    spot_keys <- dplyr::group_by(edd_source_rows, year, check_group)
+    spot_keys <- dplyr::slice_head(spot_keys, n = 1)
+    spot_keys <- dplyr::ungroup(spot_keys)
+    spot_keys <- dplyr::select(spot_keys, year, puma, naics4, ownership_code,
+                               workbook, sheet, excel_row, check_group)
+
+# Display cleaned values in source-column order for side-by-side inspection.
+    spot_monthly <- tidyr::pivot_wider(
+        dplyr::select(emp_monthly, year, puma, naics4, ownership_code, month, employment),
+        names_from = month, values_from = employment, names_prefix = "month_"
+    )
+    spot_quarterly <- tidyr::pivot_wider(
+        dplyr::select(qtr_panel, year, puma, naics4, ownership_code,
+                      quarter, establishments, wages),
+        names_from = quarter, values_from = c(establishments, wages),
+        names_sep = "_q"
+    )
+    edd_spot_check <- dplyr::left_join(
+        spot_keys, spot_monthly, by = c("year", "puma", "naics4", "ownership_code")
+    )
+    edd_spot_check <- dplyr::left_join(
+        edd_spot_check, spot_quarterly,
+        by = c("year", "puma", "naics4", "ownership_code")
+    )
+
+# Column summaries for matching Excel filters -----------------------------
+# These sums cover reported cells only; they are not complete county totals.
+# Leave sums missing when a group has no reported cells.
+    summary_monthly <- dplyr::filter(emp_monthly, month %in% c(1, 9, 12))
+    summary_monthly <- dplyr::transmute(
+        summary_monthly, year, naics4, ownership_code,
+        measure = paste0(tolower(month.abb[month]), "_employment"), value = employment
+    )
+    summary_quarterly <- dplyr::filter(qtr_panel, quarter == 4)
+    summary_quarterly <- dplyr::select(summary_quarterly, year, naics4,
+                                      ownership_code, establishments, wages)
+    summary_quarterly <- tidyr::pivot_longer(
+        summary_quarterly, cols = c(establishments, wages),
+        names_to = "measure", values_to = "value"
+    )
+    summary_quarterly$measure <- paste0("qtr_4_", summary_quarterly$measure)
+    edd_summary_check <- dplyr::bind_rows(summary_monthly, summary_quarterly)
+    edd_summary_check <- dplyr::group_by(
+        edd_summary_check, year, naics4, ownership_code, measure
+    )
+    edd_summary_check <- dplyr::summarise(
+        edd_summary_check,
+        numeric_cells = sum(!is.na(value)),
+        reported_sum = if (all(is.na(value))) NA_real_ else sum(value, na.rm = TRUE),
+        .groups = "drop"
+    )
+
+# Annual figures provide an independent check against source totals -------
+# Require all months/quarters; partial totals should not pass as annual values.
+    annual_employment <- dplyr::group_by(emp_monthly, year, puma, naics4, ownership_code)
+    annual_employment <- dplyr::summarise(
+        annual_employment, months_observed = sum(!is.na(employment)),
+        calculated_employment = mean(employment), .groups = "drop"
+    )
+    annual_wages <- dplyr::group_by(qtr_panel, year, puma, naics4, ownership_code)
+    annual_wages <- dplyr::summarise(
+        annual_wages, quarters_observed = sum(!is.na(wages)),
+        calculated_wages = sum(wages), .groups = "drop"
+    )
+    edd_annual_check <- dplyr::transmute(
+        edd_source_rows, year, puma, naics4, ownership_code, workbook, sheet, excel_row,
+        source_employment = as.numeric(annual_average_employment),
+        source_wages = as.numeric(total_annual_wages)
+    )
+    edd_annual_check <- dplyr::left_join(
+        edd_annual_check, annual_employment,
+        by = c("year", "puma", "naics4", "ownership_code")
+    )
+    edd_annual_check <- dplyr::left_join(
+        edd_annual_check, annual_wages,
+        by = c("year", "puma", "naics4", "ownership_code")
+    )
+    edd_annual_check <- dplyr::mutate(
+        edd_annual_check,
+        employment_difference = calculated_employment - source_employment,
+        wages_difference = calculated_wages - source_wages,
+        employment_flag = abs(employment_difference) > 0.5,
+        wages_flag = abs(wages_difference) > 0
+    )
+    print(dplyr::filter(edd_annual_check, employment_flag | wages_flag), width = Inf)
+
+# Explore interactively with View(edd_spot_check), View(edd_summary_check),
+# and View(edd_annual_check). Missing annual comparisons are not passes.
+
+# Save clean panels ------------------------------------------------------
+# RDS preserves Date columns, identifiers, and suppression flags for later scripts.
+    clean_path <- file.path(data_path, "clean")
+    dir.create(clean_path, recursive = TRUE, showWarnings = FALSE)
+    saveRDS(emp_monthly, file.path(clean_path, "edd_emp_monthly.rds"))
+    saveRDS(qtr_panel, file.path(clean_path, "edd_qtr_panel.rds"))
