@@ -1,9 +1,10 @@
 library(tidyverse)
 library(lubridate)
+source("script/0-config.R")
 
 #[1] load groups
 
-gp <- read_csv("data/costar/Covered_Hotel_Background_STR_Groups_Min5_Final.csv") %>% dplyr::select(PropertyID, costar_group,`Property Name`, `Property Address`)
+gp <- read_csv(file.path(costar_v1_path, "Covered_Hotel_Background_STR_Groups_Min5_Final.csv")) %>% dplyr::select(PropertyID, costar_group,`Property Name`, `Property Address`)
 
 
 
@@ -21,8 +22,8 @@ gp <- read_csv("data/costar/Covered_Hotel_Background_STR_Groups_Min5_Final.csv")
 
 #[2]
 
-trt <- read_csv("data/costar/downloads/AllCoveredHotels_download020726.csv")
-ctl <- read_csv("data/costar/downloads/ControlHotelsOtherCities021326.csv")
+trt <- read_csv(file.path(costar_tgv2_path, "AllCoveredHotels_download020726.csv"))
+ctl <- read_csv(file.path(costar_tgv2_path, "ControlHotelsOtherCities021326.csv"))
 
 trt$RevPAR = as.numeric(gsub("[^0-9.-]", "", trt$RevPAR))
 ctl$RevPAR = as.numeric(gsub("[^0-9.-]", "", ctl$RevPAR))
@@ -172,8 +173,8 @@ abline(v = as.Date("2025-09-01"), lty = 2)
 
 # Supply plots (treated vs control + post-2021 zoom + treated-control diff)
 
-trt <- read_csv("data/costar/downloads/AllCoveredHotels_download020726.csv")
-ctl <- read_csv("data/costar/downloads/ControlHotelsOtherCities021326.csv")
+trt <- read_csv(file.path(costar_tgv2_path, "AllCoveredHotels_download020726.csv"))
+ctl <- read_csv(file.path(costar_tgv2_path, "ControlHotelsOtherCities021326.csv"))
 
 # parse Supply (strips commas, etc.)
 trt$Supply = as.numeric(gsub("[^0-9.-]", "", trt$Supply))
@@ -228,8 +229,6 @@ plot(diff$Period[diff$Period >= "2021-01-01"],
      xlab = "", ylab = "Supply Treat - Control")
 
 abline(v = as.Date("2025-09-01"), lty = 2)
-
-
 
 
 

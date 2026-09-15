@@ -4,7 +4,7 @@ source("script/0-loadPackages.R")
 
     #step 1: identify top routes in the pre data
 
-          data_path <- "~/Dropbox (Personal)/Living Wage Data/new/"
+          data_path <- flight_traffic_path
           
           fls <- list.files(data_path, pattern = "\\.csv$", full.names = TRUE)
           
@@ -65,7 +65,7 @@ source("script/0-loadPackages.R")
     #now pull in data for post data      
       
          
-        data_path <- "~/Dropbox (Personal)/Living Wage Data/Prices/"
+        data_path <- flight_price_path
         
         
         fls <- list.files(data_path, pattern = ".parquet")
@@ -159,7 +159,7 @@ source("script/0-loadPackages.R")
 
 
       
-      data_path <- "~/Dropbox (Personal)/Living Wage Data/new/"
+      data_path <- flight_traffic_path
       
       fls <- list.files(data_path, pattern = "\\.csv$", full.names = TRUE)
       
@@ -211,7 +211,7 @@ source("script/0-loadPackages.R")
         arrange(route, YEAR, QUARTER)
       
       
-      write_rds(dat_all_q, file = "data/clean/AirportPrices.rds")
+      write_rds(dat_all_q, file = file.path(clean_path, "AirportPrices.rds"))
       
       
       
@@ -396,5 +396,3 @@ for (r in routes) {
 
 
 dev.off()
-
-

@@ -12,7 +12,7 @@ library(readr)
 library(janitor)
 
 
-file <- "data/edd/40627_2023 Q1-2025 Q3_ Los Angeles County_PUMA Level.xlsx"
+file <- file.path(edd_path, "40627_2023 Q1-2025 Q3_ Los Angeles County_PUMA Level.xlsx")
 
 years <- c("2023", "2024", "2025")
 

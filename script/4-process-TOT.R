@@ -1,9 +1,10 @@
 library(tidyverse)
 library(lubridate)
+source("script/0-config.R")
 
 
 
-tot_h = read_csv("data/TOT/hotel_TOT_2023_2025.csv") %>% as.data.frame()
+tot_h = read_csv(file.path(tot_path, "hotel_TOT_2023_2025.csv")) %>% as.data.frame()
 names(tot_h) <- c("district","date","rev_type","amt_liab","amt_int","amt_pen","amt_fee","amnt_op","amt_tot")
 tot_h$date <- as.Date(paste0(tot_h$date, "/01"), format = "%Y/%m/%d")
 tot_h$amt_liab <- as.numeric(gsub("[^0-9.-]", "", tot_h$amt_liab))

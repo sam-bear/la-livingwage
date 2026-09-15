@@ -3,10 +3,10 @@ source("script/0-loadPackages.R")
 
 
 hotels <- list()
-hotels[[1]] <- read.csv("data/hotellists/hotel_tax_finance.csv")
-hotels[[2]] <- read.csv("data/hotellists/hotels_los_angeles_building_safety.csv")
-hotels[[3]] <- read.csv("data/hotellists/LA Hotels by Councilmember Districts 03182025_AHLA.csv")
-hotels[[4]] <- read.csv("data/hotellists/tourism_board_list.csv")
+hotels[[1]] <- read.csv(file.path(hotel_lists_path, "hotel_tax_finance.csv"))
+hotels[[2]] <- read.csv(file.path(hotel_lists_path, "hotels_los_angeles_building_safety.csv"))
+hotels[[3]] <- read.csv(file.path(hotel_lists_path, "LA Hotels by Councilmember Districts 03182025_AHLA.csv"))
+hotels[[4]] <- read.csv(file.path(hotel_lists_path, "tourism_board_list.csv"))
 names(hotels)<-c("finance","blddpt","ahla","tourism")
 
 
@@ -23,20 +23,20 @@ hotel_list <- tourism_list %>% rename(rooms_tourism = Rooms); hotel_list$Name.of
 hotel_list <- hotel_list %>% full_join(aha_list, join_by(Name.of.Establishment==Hotel.Name)) %>% rename(rooms_aha = Rooms)
 
 bldsafe_list = bldsafe_list %>% filter(tolower(Address) %in% tolower(hotel_list$Address.1)==F)
-write_csv(bldsafe_list, file = "data/hotellists/bldsafe_list_2check.csv")
+write_csv(bldsafe_list, file = file.path(hotel_lists_path, "bldsafe_list_2check.csv"))
 #this has now combined tourism and aha. Now add in building safety
 
 
 
 
 
-write_csv(hotel_list, file = "data/hotellists/Complete_Hotel_list.csv")
+write_csv(hotel_list, file = file.path(hotel_lists_path, "Complete_Hotel_list.csv"))
 
   ### next step is manually fill the missing addresses and reconcile variables across datasets
 
     #manually filled in missing addresses so join that back in
-        hotel_list1 <- read_csv("data/hotellists/Complete_Hotel_list_manualAddressFill.csv"); names(hotel_list1) <- c("hotel_name","address","city","zip")
-        hotel_list <- read_csv("data/hotellists/Complete_Hotel_list.csv"); names(hotel_list)<-c("hotel_name","rooms_tb","district_no","councilmember","address","city","zip","rooms_aha","chain","class","rstrnt_yn","operation","unionized","unionized_count")
+        hotel_list1 <- read_csv(file.path(hotel_lists_path, "Complete_Hotel_list_manualAddressFill.csv")); names(hotel_list1) <- c("hotel_name","address","city","zip")
+        hotel_list <- read_csv(file.path(hotel_lists_path, "Complete_Hotel_list.csv")); names(hotel_list)<-c("hotel_name","rooms_tb","district_no","councilmember","address","city","zip","rooms_aha","chain","class","rstrnt_yn","operation","unionized","unionized_count")
         hotel_list = hotel_list %>% dplyr::rename(address1 = address, city1 = city, zip1 = zip) #rename to check join worked
         hotel_list <- hotel_list %>% left_join(hotel_list1)
         
@@ -115,7 +115,7 @@ write_csv(hotel_list, file = "data/hotellists/Complete_Hotel_list.csv")
 
                 
               ####now pull the district####
-                      dist <- read_sf("../Research/data/inputs/boundaries/LA_City_Council_Districts_(Adopted_2021)/LA_City_Council_Districts_(Adopted_2021).shp")
+                      dist <- read_sf(council_district_file)
                       
                 
                         # Convert hotels to sf points 
@@ -150,7 +150,7 @@ write_csv(hotel_list, file = "data/hotellists/Complete_Hotel_list.csv")
                   
                   #####check whether in border of Los Angeles ####
                         
-                        lac <- read_sf("../Research/data/inputs/boundaries/City_Boundary/City.shp") %>% filter(CITY_NAME=="Los Angeles")
+                        lac <- read_sf(city_boundary_file) %>% filter(CITY_NAME=="Los Angeles")
                         
                         # Convert hotels to sf points 
                         hotels_sf <- st_as_sf(
@@ -173,7 +173,7 @@ write_csv(hotel_list, file = "data/hotellists/Complete_Hotel_list.csv")
                         
                         
                   #to check other dataset geocde and compare lat lon to see if any unique (maybe after slight rounding)
-                      write_rds(hotels, file = "data/CLEAN_COVERED_HOTEL_LIST_DEC2025.rds")  
+                      write_rds(hotels, file = file.path(data_path, "CLEAN_COVERED_HOTEL_LIST_DEC2025.rds"))
                         
                   
                   

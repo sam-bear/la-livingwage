@@ -7,7 +7,7 @@ source("script/0-loadPackages.R")
 pdf("figures/raw/FigAX-edd-emp.pdf", width= 8, height = 8)
 
 
-edd = readxl::read_xlsx("data/EDD/edd-la-hws.xlsx")%>% filter(`SS-NAICS`=="70-721000") %>% dplyr::select(-SORTORDER, -BMYEAR, -AREA, -INCLUDES, -BREAKS, -PNCO)#LA MSA only
+edd = readxl::read_xlsx(file.path(edd_path, "edd-la-hws.xlsx"))%>% filter(`SS-NAICS`=="70-721000") %>% dplyr::select(-SORTORDER, -BMYEAR, -AREA, -INCLUDES, -BREAKS, -PNCO)#LA MSA only
 
 emp <- data.frame(date =as.Date(as.numeric(names(edd)[3:ncol(edd)]), origin = "1899-12-30"), n = as.numeric(edd[1,3:ncol(edd)]))
 

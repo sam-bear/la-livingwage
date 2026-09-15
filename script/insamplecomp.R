@@ -1,5 +1,6 @@
-ah = read_rds( "data/clean/HotelsLACInfo_allSizeallTreatStatus.rds")
-hi = read_rds("data/clean/AnalysisHotelInfo_DataReported.rds")
+source("script/0-config.R")
+ah = read_rds(file.path(clean_path, "HotelsLACInfo_allSizeallTreatStatus.rds"))
+hi = read_rds(file.path(clean_path, "AnalysisHotelInfo_DataReported.rds"))
 
 
 insamp = hi %>% filter(treated == 1)

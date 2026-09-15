@@ -1,7 +1,7 @@
 source("script/0-loadFunctions.R")
 source("script/0-loadPackages.R")
 
-hotel_list <- read_rds("data/CLEAN_COVERED_HOTEL_LIST_DEC2025.rds") %>% filter(city_boundary_check!="Other")
+hotel_list <- read_rds(file.path(data_path, "CLEAN_COVERED_HOTEL_LIST_DEC2025.rds")) %>% filter(city_boundary_check!="Other")
 
 
 
@@ -12,8 +12,8 @@ dist_hotel = hotel_list %>% group_by(councilmember, district_no) %>% summarise(h
 #bring in CES4
 
     #load the two shapefiles
-      dist <- read_sf("../Research/data/inputs/boundaries/LA_City_Council_Districts_(Adopted_2021)/LA_City_Council_Districts_(Adopted_2021).shp")
-      ces <- read_sf("../Research/data/inputs/calenviroscreen40shpf2021shp/CES4 Final Shapefile.shp")
+      dist <- read_sf(council_district_file)
+      ces <- read_sf(ces_boundary_file)
     #get in same crs
       ces <- ces %>% st_transform(st_crs(dist))
     
@@ -78,7 +78,7 @@ dist_hotel = hotel_list %>% group_by(councilmember, district_no) %>% summarise(h
             dist$rooms[is.na(dist$rooms)]<-0
             dist = dist %>% dplyr::select(-councilmember)
             
-      write_rds(dist, file = "data/CES4_by_councilDistrict.rds")
+      write_rds(dist, file = file.path(data_path, "CES4_by_councilDistrict.rds"))
       
       
       
@@ -224,8 +224,8 @@ dist_hotel = hotel_list %>% group_by(councilmember, district_no) %>% summarise(h
                   # USAGE EXAMPLE (you edit these objects)
                   # ------------------------------------------------------------
                   
-                  wages_h = read_rds("../Research/data/clean/oes-hotel-worker-wage-distribution.rds")     %>% rename(occsoc = sococc)             
-                  hwk <- read_rds("../Research/data/clean/projected_hotel_workers_by_industry_occupation_2024_2030.rds")
+                  wages_h = read_rds(file.path(research_clean_path, "oes-hotel-worker-wage-distribution.rds"))     %>% rename(occsoc = sococc)
+                  hwk <- read_rds(file.path(research_clean_path, "projected_hotel_workers_by_industry_occupation_2024_2030.rds"))
                   hwk = left_join(hwk, wages_h[,c("occsoc","avewage")])
                   hwk = hwk %>% filter(year == 2025)
                   hwk = hwk %>% dplyr::select(occsoc, occ_desc, jobs, avewage)
@@ -252,7 +252,7 @@ dist_hotel = hotel_list %>% group_by(councilmember, district_no) %>% summarise(h
                     )
 
                   # Optional: your LA City boundary (sf polygon), e.g. from your own shapefile:
-                   city_sf <- st_read("../Research/data/inputs/boundaries/City_Boundary/City.shp") %>% st_make_valid()
+                   city_sf <- st_read(city_boundary_file) %>% st_make_valid()
                    city_total_trusted <- sum(hwk$jobs)
 
                   out <- build_la_hotel_surface(

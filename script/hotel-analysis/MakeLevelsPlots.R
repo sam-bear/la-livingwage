@@ -1,6 +1,7 @@
 library(dplyr)
 library(scales)
 library(MetBrewer)
+source("script/0-config.R")
 
 # groups already in df:
 # AllTreated, CG_Small, CG_Union, CG_EmbCity
@@ -237,9 +238,9 @@ dev.off()
 
 ############# FIG 1 LEVELS PLOT ###############
 
-dir <- "data/costar/"
+dir <- costar_path
 
-data = read_excel(paste0(dir,"AggregateCityData.xlsx"))
+data = read_excel(file.path(dir, "AggregateCityData.xlsx"))
 
 
 lac = data %>% dplyr::select(Period, Occupancy, ADR, RevPAR, Demand)

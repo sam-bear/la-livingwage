@@ -3,11 +3,11 @@ source("script/0-loadPackages.R")
 
 
       #load data
-          lac <- read_sf("../Research/data/inputs/boundaries/City Boundary of Los Angeles/geo_export_85d35a5d-88a0-4517-8f0f-94c8f2139bd6.shp")
-          allhotels <- read_rds("data/clean/HotelsLACInfo_allSizeallTreatStatus.rds")
+          lac <- read_sf(council_district_file)
+          allhotels <- read_rds(file.path(clean_path, "HotelsLACInfo_allSizeallTreatStatus.rds"))
           hotels_sf <- allhotels %>%
             st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326, remove = FALSE)
-          dist <- read_sf("../Research/data/inputs/boundaries/LA_City_Council_Districts_(Adopted_2021)/LA_City_Council_Districts_(Adopted_2021).shp")  
+          dist <- read_sf(council_district_file)
             
       # make sure both are in Web Mercator for basemap tiles
           lac_3857    <- st_transform(lac, 3857)
@@ -290,7 +290,7 @@ source("script/0-loadPackages.R")
 ################################################################################################################################################      
 ####### NOW DO FOR THE ANALYTICAL SAMPLE ########        
         
-      allhotels <- read_rds("data/clean/AnalysisHotelInfo_DataReported.rds") 
+      allhotels <- read_rds(file.path(clean_path, "AnalysisHotelInfo_DataReported.rds"))
       
         plotmapping = data.frame(label = sort(unique(allhotels$label)), plotgroup = NA)
         plotmapping$plotgroup[plotmapping$label %in% paste0("C0",1:4)]<-"control_union"

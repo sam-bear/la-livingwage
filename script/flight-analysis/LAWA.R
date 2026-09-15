@@ -4,7 +4,7 @@ source("script/0-loadPackages.R")
 
 airp = list()
 yrs = 2023:2025
-for(y in 1:3){airp[[y]] = read_csv(paste0("data/Flights/T100/T_T100D_MARKET_ALL_CARRIER_",yrs[y],".csv"))}
+for(y in 1:3){airp[[y]] = read_csv(file.path(flights_path, "T100", paste0("T_T100D_MARKET_ALL_CARRIER_", yrs[y], ".csv")))}
 airp = data.frame(rbindlist(airp))
 
 AIRPORTS = c("SFO","LAX","SAN","SEA","LAS","PHX","SNA")

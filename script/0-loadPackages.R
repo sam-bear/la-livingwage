@@ -1,3 +1,5 @@
+source("script/0-config.R")
+
 library(tidycensus)
 library(tidyverse)
 library(sp)

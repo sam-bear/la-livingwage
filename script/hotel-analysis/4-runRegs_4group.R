@@ -6,7 +6,7 @@ source("script/0-loadPackages.R")
 
 
       #define variables
-      df_plot <- read_rds('data/clean/AnalysisData_LargeGroups.rds') %>% filter(date>="2020-01-01") %>%
+      df_plot <- read_rds(file.path(clean_path, "AnalysisData_LargeGroups.rds")) %>% filter(date>="2020-01-01") %>%
         filter(group %in% c("AllTreated", "CG_Small", "CG_Union", "CG_EmbCity")) %>%
         arrange(group, date) %>%
         filter(date>="2023-01-01")

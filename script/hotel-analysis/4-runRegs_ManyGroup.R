@@ -6,7 +6,7 @@ source("script/0-loadPackages.R")
 
 
       #define variables
-      df <- read_rds('data/clean/AnalysisData_SubGroups.rds') %>% filter(date>="2023-01-01") %>%
+      df <- read_rds(file.path(clean_path, "AnalysisData_SubGroups.rds")) %>% filter(date>="2023-01-01") %>%
         arrange(group, date) %>%
         mutate(
           period = case_when(
@@ -378,7 +378,7 @@ par(op)
       
       
       #define variables
-      df <- read_rds('data/clean/AnalysisData_SubGroups.rds') %>% filter(date>="2023-01-01") %>%
+      df <- read_rds(file.path(clean_path, "AnalysisData_SubGroups.rds")) %>% filter(date>="2023-01-01") %>%
         arrange(group, date) %>%
         mutate(
           period = case_when(
@@ -700,7 +700,7 @@ par(op)
     
     
     #define variables
-    df <- read_rds('data/clean/AnalysisData_SubGroups.rds') %>% filter(date>="2023-01-01") %>%
+    df <- read_rds(file.path(clean_path, "AnalysisData_SubGroups.rds")) %>% filter(date>="2023-01-01") %>%
       arrange(group, date) %>%
       mutate(
         period = case_when(
@@ -821,7 +821,7 @@ par(op)
             ### event study stuyle
             
             #define variables
-            df <- read_rds('data/clean/AnalysisData_SubGroups.rds') %>% filter(date>="2023-01-01") %>%
+            df <- read_rds(file.path(clean_path, "AnalysisData_SubGroups.rds")) %>% filter(date>="2023-01-01") %>%
               arrange(group, date) %>%
               mutate(
                 period = case_when(
@@ -992,7 +992,7 @@ par(op)
            
            
            #define variables
-           df <- read_rds('data/clean/AnalysisData_SubGroups.rds') %>% filter(date>="2023-01-01") %>%
+           df <- read_rds(file.path(clean_path, "AnalysisData_SubGroups.rds")) %>% filter(date>="2023-01-01") %>%
              arrange(group, date) %>%
              mutate(
                period = case_when(

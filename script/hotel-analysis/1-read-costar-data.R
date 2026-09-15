@@ -2,13 +2,13 @@ source("script/0-loadFunctions.R")
 source("script/0-loadPackages.R")
 
   #directory with data
-      dir <- "data/costar/downloads/"
+      dir <- costar_downloads_path
 
   #load list of all hotels in city (roughly in city haven't verified boundaries)
-      allhotels <- read_excel(paste0(dir,"AllHotels_LA_hotelinfo_raw.xlsx"))
+      allhotels <- read_excel(file.path(dir, "AllHotels_LA_hotelinfo_raw.xlsx"))
       
   #it seems like all the non matches are either slight text name mismatches, hotel name changed, outside city boundaries, or abandoned/closed properties
-      check <- read_rds("data/CLEAN_COVERED_HOTEL_LIST_DEC2025.rds")
+      check <- read_rds(file.path(data_path, "CLEAN_COVERED_HOTEL_LIST_DEC2025.rds"))
       
 
   #label the files that are aggregated data for overveiw but not analysis
@@ -27,7 +27,7 @@ source("script/0-loadPackages.R")
   #there are 30ish hotels that we know are treated but don't report data they are in the aggregated data
     hi <- list()
     for(i in 1:length(hotelinfo_fls)){
-      hi[[i]] <- read_xlsx(paste0(dir, hotelinfo_fls[i])) %>% mutate(label = hotelinfo_group[i])
+      hi[[i]] <- read_xlsx(file.path(dir, hotelinfo_fls[i])) %>% mutate(label = hotelinfo_group[i])
                                           }
 
   #clean up labeling (eg T01 = treatment group 1, C03 = control group 3)
@@ -35,7 +35,7 @@ source("script/0-loadPackages.R")
     hi$treated = 0
     hi$treated[substr(hi$label,1,1)=="T"]<-1
     hi$group <- as.numeric(substr(hi$label,2,4))
-    write_rds(hi, file = "data/clean/AnalysisHotelInfo_DataReported.rds")
+    write_rds(hi, file = file.path(clean_path, "AnalysisHotelInfo_DataReported.rds"))
     
     
   #now bring in the aggregated group hotel info
@@ -43,7 +43,7 @@ source("script/0-loadPackages.R")
   
     hi_ag <- list()
     for(i in 1:length(agg_info)){
-      hi_ag[[i]] <- read_excel(paste0(dir, agg_info[i])) %>% mutate(label = agg_label[i])
+      hi_ag[[i]] <- read_excel(file.path(dir, agg_info[i])) %>% mutate(label = agg_label[i])
         }
     hi_ag = data.frame(rbindlist(hi_ag))
     
@@ -78,7 +78,7 @@ source("script/0-loadPackages.R")
         
         
     
-    write_rds(hi_ag, file = "data/clean/AnalysisHotelInfo_aggData_includeNoDataReported.rds")
+    write_rds(hi_ag, file = file.path(clean_path, "AnalysisHotelInfo_aggData_includeNoDataReported.rds"))
     #this is the full list of hotels regardless of whether they report data
     
 
@@ -104,7 +104,7 @@ source("script/0-loadPackages.R")
     
   #verify against manually collected list to check for discrpeancies (expect the loaded data to be more correct but double check)  
     
-    lac <- read_sf("../Research/data/inputs/boundaries/City Boundary of Los Angeles/geo_export_85d35a5d-88a0-4517-8f0f-94c8f2139bd6.shp")
+    lac <- read_sf(council_district_file)
     
   
     # 1) make sf points from lat/lon
@@ -130,7 +130,7 @@ source("script/0-loadPackages.R")
     allhotels$treated = 0
     allhotels$treated[allhotels$PropertyID %in% hi_ag$PropertyID[hi_ag$label=="AllTreated"]]<-1
     
-    write_rds(allhotels, file = "data/clean/HotelsLACInfo_allSizeallTreatStatus.rds")
+    write_rds(allhotels, file = file.path(clean_path, "HotelsLACInfo_allSizeallTreatStatus.rds"))
     
    
     
@@ -149,7 +149,7 @@ source("script/0-loadPackages.R")
           agg_label <- c("AllTreated","CG_EmbCity","CG_Small","CG_Union")
           agg_dat <- paste0(agg_label, "_monthly.xlsx")
           add = list()
-          for(i in 1:length(agg_dat)){add[[i]] = read_xlsx(paste0(dir,agg_dat[i])); add[[i]]$group = agg_label[i]}
+          for(i in 1:length(agg_dat)){add[[i]] = read_xlsx(file.path(dir, agg_dat[i])); add[[i]]$group = agg_label[i]}
           add = data.frame(rbindlist(add))
           
           add = add %>% mutate(month = substr(Period,1,3), year = as.numeric(substr(Period,4,8)), date = as.Date(paste("01",month,year,sep="-"),format = "%d-%b-%Y"))
@@ -185,7 +185,7 @@ source("script/0-loadPackages.R")
           #bring in covariates
        
           
-          covar <- read_rds("data/clean/AnalysisHotelInfo_aggData_includeNoDataReported.rds") %>%  sf::st_drop_geometry() %>%
+          covar <- read_rds(file.path(clean_path, "AnalysisHotelInfo_aggData_includeNoDataReported.rds")) %>%  sf::st_drop_geometry() %>%
             rename(group = label) %>%
             mutate(
               income  = X2024.Avg.HH.Inc.1m.,
@@ -277,7 +277,7 @@ source("script/0-loadPackages.R")
           add = left_join(add, covar_group)
           
           
-          write_rds(add, file = 'data/clean/AnalysisData_LargeGroups.rds')
+          write_rds(add, file = file.path(clean_path, "AnalysisData_LargeGroups.rds"))
 
           
           
@@ -294,7 +294,7 @@ source("script/0-loadPackages.R")
           #there are 30ish hotels that we know are treated but don't report data they are in the aggregated data
           hd <- list()
           for(i in 1:length(hoteldat_fls)){
-            hd[[i]] <- read_xlsx(paste0(dir, hoteldat_fls[i])) %>% mutate(label = hoteldat_group[i])
+            hd[[i]] <- read_xlsx(file.path(dir, hoteldat_fls[i])) %>% mutate(label = hoteldat_group[i])
           }
           
           #clean up labeling (eg T01 = treatment group 1, C03 = control group 3)
@@ -305,7 +305,7 @@ source("script/0-loadPackages.R")
 
           hd = hd %>% mutate(month = substr(Period,1,3), year = as.numeric(substr(Period,4,8)), date = as.Date(paste("01",month,year,sep="-"),format = "%d-%b-%Y"))
           
-          covar <- read_rds("data/clean/AnalysisHotelInfo_DataReported.rds") %>%  sf::st_drop_geometry() %>%
+          covar <- read_rds(file.path(clean_path, "AnalysisHotelInfo_DataReported.rds")) %>%  sf::st_drop_geometry() %>%
             mutate(
               income  = X2024.Avg.HH.Inc.1m.,
               homeval = X2024.Median.Home.Value.1m.,
@@ -415,7 +415,7 @@ source("script/0-loadPackages.R")
           
           
           
-          write_rds(hd, file = 'data/clean/AnalysisData_SubGroups.rds')
+          write_rds(hd, file = file.path(clean_path, "AnalysisData_SubGroups.rds"))
           
 
           
@@ -428,9 +428,9 @@ source("script/0-loadPackages.R")
           
           
           #load list of all hotels in city (roughly in city haven't verified boundaries)
-          all = read_rds("data/clean/AnalysisHotelInfo_aggData_includeNoDataReported.rds")
-          closures <- read_excel(paste0("data/costar/Costar_PermanentClosures_Date.xlsx")) %>% rename(name = `Building Name`, closeDate = `Change Date`)
-          cl_info <- read_excel(paste0("data/costar/Costar_PermanentClosures_HotelList.xlsx")) %>% dplyr::select(PropertyID, name = `Property Name`,Rooms)
+          all = read_rds(file.path(clean_path, "AnalysisHotelInfo_aggData_includeNoDataReported.rds"))
+          closures <- read_excel(file.path(costar_path, "Costar_PermanentClosures_Date.xlsx")) %>% rename(name = `Building Name`, closeDate = `Change Date`)
+          cl_info <- read_excel(file.path(costar_path, "Costar_PermanentClosures_HotelList.xlsx")) %>% dplyr::select(PropertyID, name = `Property Name`,Rooms)
           closures = left_join(closures, cl_info)      
           closures$closeDate = as.Date(closures$closeDate, format = "%m/%d/%Y")
           closures$closeDateMonth = as.Date(format(closures$closeDate, "%Y-%m-01"))
@@ -462,8 +462,8 @@ source("script/0-loadPackages.R")
           
           ######
           
-          cinfo = read_xlsx("data/costar/HotelClosureHotelInfo.xlsx") %>% mutate(`Building Name` = `Property Name`) %>% dplyr::select(`Building Name`,Rooms,Restaurant, `Star Rating`)
-          closures = read_xlsx("data/costar/HotelClosureChanges.xlsx") %>% filter(`Change Type`=="Operational Status Changes" & (`New Value`=="Permanently Closed" | `New Value` == "Temporarily Closed"))
+          cinfo = read_xlsx(file.path(costar_path, "HotelClosureHotelInfo.xlsx")) %>% mutate(`Building Name` = `Property Name`) %>% dplyr::select(`Building Name`,Rooms,Restaurant, `Star Rating`)
+          closures = read_xlsx(file.path(costar_path, "HotelClosureChanges.xlsx")) %>% filter(`Change Type`=="Operational Status Changes" & (`New Value`=="Permanently Closed" | `New Value` == "Temporarily Closed"))
 
           closures$date= as.Date(closures$`Change Date`, format = "%m/%d/%Y")
           closures$month = month(closures$date)

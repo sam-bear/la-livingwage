@@ -2,13 +2,13 @@ source("script/0-loadFunctions.R")
 source("script/0-loadPackages.R")
 
 
-dir <- "data/clean"
+dir <- clean_path
 
 
 ## ------------------------------------------------------------
 ## Figure 2. Pre-Policy Hotel Performance by Analysis Group
 ## ------------------------------------------------------------
-        add = read_rds('data/clean/AnalysisData_LargeGroups.rds')
+        add = read_rds(file.path(clean_path, "AnalysisData_LargeGroups.rds"))
         
         # ---- build plotting data ----
         plot_dat <- add %>%
@@ -131,7 +131,7 @@ dir <- "data/clean"
         hotels_sf$treated <- 0
         hotels_sf$treated[hotels_sf$PropertyID %in% treated$PropertyID]<-1
         
-        cdist <- read_sf("../Research/data/inputs/boundaries/LA_City_Council_Districts_(Adopted_2021)/LA_City_Council_Districts_(Adopted_2021).shp")
+        cdist <- read_sf(council_district_file)
         
         hotels_cd = st_intersection(hotels_sf, cdist)
         
@@ -147,7 +147,7 @@ dir <- "data/clean"
         ## assume df has:
         ## date, group, adr
         
-        add = read_rds('data/clean/AnalysisData_LargeGroups.rds') %>% filter(date>="2020-01-01")
+        add = read_rds(file.path(clean_path, "AnalysisData_LargeGroups.rds")) %>% filter(date>="2020-01-01")
         pal_sub = pal[c(1,8,7,5)]
         
         pal_sub[2:4]<-add.alpha(pal_sub[2:4], .8)
@@ -266,7 +266,7 @@ dir <- "data/clean"
         #################################################################################################################################################      
         ####### APPENDIX TABLE
         
-        add = read_rds('data/clean/AnalysisData_LargeGroups.rds')
+        add = read_rds(file.path(clean_path, "AnalysisData_LargeGroups.rds"))
         
         tab_group_x12 <- add %>%
           group_by(group) %>%

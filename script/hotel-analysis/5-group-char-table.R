@@ -1,4 +1,5 @@
-df <- read_rds('data/clean/AnalysisData_SubGroups.rds') %>% filter(date>="2023-01-01") 
+source("script/0-config.R")
+df <- read_rds(file.path(clean_path, "AnalysisData_SubGroups.rds")) %>% filter(date>="2023-01-01")
 
         
         #clean up labeling ---
@@ -92,7 +93,7 @@ tdat[,grep(x = names(tdat), pattern ="share")] <- round(100*tdat[,grep(x = names
   
   
   
-  df <- read_rds('data/clean/AnalysisData_SubGroups.rds') %>% filter(date>="2023-01-01") 
+  df <- read_rds(file.path(clean_path, "AnalysisData_SubGroups.rds")) %>% filter(date>="2023-01-01")
   
   
   #clean up labeling ---

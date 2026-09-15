@@ -86,7 +86,7 @@
                fill = coverage_colors, border = NA, bty = "n", cex = 0.8)
     }
     mtext(paste("EDD employment availability -", ownership_label,
-                "-", format(map_date, "%B %Y")), outer = TRUE, side = 3, line = 0.3)
+                "-", format(map_date, "%Y")), outer = TRUE, side = 3, line = 0.3)
     mtext("Workplace PUMAs | Reported includes observed zeros | Source: EDD; Census boundaries",
           outer = TRUE, side = 1, line = 1, cex = 0.8)
     dev.off()
