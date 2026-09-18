@@ -1,0 +1,4 @@
+"source_group","rows","unique_property_ids","duplicate_property_ids","total_rooms","missing_rooms","zero_rooms","missing_longitude","missing_latitude","room_range_violations","conversion_failures"
+"rooms_101_plus",312,312,0,70493,0,0,0,0,0,0
+"rooms_1_30",458,458,0,8866,0,0,0,0,0,0
+"rooms_31_100",440,440,0,23717,0,0,0,0,0,0
