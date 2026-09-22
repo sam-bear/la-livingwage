@@ -1,0 +1,109 @@
+"date","naics4","industry_short","employment","yoy_percent"
+2023-01-01,"4811","Scheduled air transportation",25350,NA
+2023-02-01,"4811","Scheduled air transportation",25274,NA
+2023-03-01,"4811","Scheduled air transportation",25184,NA
+2023-04-01,"4811","Scheduled air transportation",25792,NA
+2023-05-01,"4811","Scheduled air transportation",25968,NA
+2023-06-01,"4811","Scheduled air transportation",25575,NA
+2023-07-01,"4811","Scheduled air transportation",26167,NA
+2023-08-01,"4811","Scheduled air transportation",26562,NA
+2023-09-01,"4811","Scheduled air transportation",26416,NA
+2023-10-01,"4811","Scheduled air transportation",27194,NA
+2023-11-01,"4811","Scheduled air transportation",27347,NA
+2023-12-01,"4811","Scheduled air transportation",27130,NA
+2024-01-01,"4811","Scheduled air transportation",28302,11.6449704142012
+2024-02-01,"4811","Scheduled air transportation",28355,12.1903932895466
+2024-03-01,"4811","Scheduled air transportation",27986,11.1261118170267
+2024-04-01,"4811","Scheduled air transportation",27726,7.49844913151365
+2024-05-01,"4811","Scheduled air transportation",27684,6.60813308687616
+2024-06-01,"4811","Scheduled air transportation",27328,6.85434995112415
+2024-07-01,"4811","Scheduled air transportation",27469,4.97573279321282
+2024-08-01,"4811","Scheduled air transportation",27431,3.27159099465402
+2024-09-01,"4811","Scheduled air transportation",27210,3.00575408843125
+2024-10-01,"4811","Scheduled air transportation",27503,1.13628006177833
+2024-11-01,"4811","Scheduled air transportation",27493,0.533879401762527
+2024-12-01,"4811","Scheduled air transportation",27153,0.0847769996314085
+2025-01-01,"4811","Scheduled air transportation",27706,-2.10585824323369
+2025-02-01,"4811","Scheduled air transportation",27732,-2.19714336095926
+2025-03-01,"4811","Scheduled air transportation",27435,-1.96884156363897
+2025-04-01,"4811","Scheduled air transportation",28045,1.15054461516266
+2025-05-01,"4811","Scheduled air transportation",28056,1.34373645426962
+2025-06-01,"4811","Scheduled air transportation",27605,1.01361241217799
+2025-07-01,"4811","Scheduled air transportation",28099,2.29349448469183
+2025-08-01,"4811","Scheduled air transportation",27948,1.88472895629033
+2025-09-01,"4811","Scheduled air transportation",27350,0.514516721793457
+2025-10-01,"4811","Scheduled air transportation",28129,2.27611533287277
+2025-11-01,"4811","Scheduled air transportation",28320,3.00803840977704
+2025-12-01,"4811","Scheduled air transportation",27933,2.87261076124186
+2023-01-01,"4881","Support activities for air transportation",8081,NA
+2023-02-01,"4881","Support activities for air transportation",7999,NA
+2023-03-01,"4881","Support activities for air transportation",7988,NA
+2023-04-01,"4881","Support activities for air transportation",8141,NA
+2023-05-01,"4881","Support activities for air transportation",8121,NA
+2023-06-01,"4881","Support activities for air transportation",8376,NA
+2023-07-01,"4881","Support activities for air transportation",8593,NA
+2023-08-01,"4881","Support activities for air transportation",8684,NA
+2023-09-01,"4881","Support activities for air transportation",8681,NA
+2023-10-01,"4881","Support activities for air transportation",8733,NA
+2023-11-01,"4881","Support activities for air transportation",8786,NA
+2023-12-01,"4881","Support activities for air transportation",8850,NA
+2024-01-01,"4881","Support activities for air transportation",8938,10.6051231283257
+2024-02-01,"4881","Support activities for air transportation",8883,11.0513814226778
+2024-03-01,"4881","Support activities for air transportation",8958,12.1432148222334
+2024-04-01,"4881","Support activities for air transportation",9003,10.5883798059206
+2024-05-01,"4881","Support activities for air transportation",8973,10.4913188031031
+2024-06-01,"4881","Support activities for air transportation",9112,8.7870105062082
+2024-07-01,"4881","Support activities for air transportation",9181,6.84277900616781
+2024-08-01,"4881","Support activities for air transportation",9233,6.32197144173192
+2024-09-01,"4881","Support activities for air transportation",9278,6.87708789309986
+2024-10-01,"4881","Support activities for air transportation",9301,6.5040650406504
+2024-11-01,"4881","Support activities for air transportation",9419,7.20464375142271
+2024-12-01,"4881","Support activities for air transportation",9623,8.73446327683616
+2025-01-01,"4881","Support activities for air transportation",9441,5.62765719400313
+2025-02-01,"4881","Support activities for air transportation",9315,4.86322188449848
+2025-03-01,"4881","Support activities for air transportation",9453,5.52578700602813
+2025-04-01,"4881","Support activities for air transportation",9433,4.77618571587248
+2025-05-01,"4881","Support activities for air transportation",9379,4.52468516661095
+2025-06-01,"4881","Support activities for air transportation",9509,4.35689201053555
+2025-07-01,"4881","Support activities for air transportation",9290,1.1872345060451
+2025-08-01,"4881","Support activities for air transportation",9333,1.08307159103216
+2025-09-01,"4881","Support activities for air transportation",9250,-0.301789178702305
+2025-10-01,"4881","Support activities for air transportation",9266,-0.376303623266316
+2025-11-01,"4881","Support activities for air transportation",9269,-1.5925257458329
+2025-12-01,"4881","Support activities for air transportation",9398,-2.33814818663618
+2023-01-01,"total","Combined airport industries",33431,NA
+2023-02-01,"total","Combined airport industries",33273,NA
+2023-03-01,"total","Combined airport industries",33172,NA
+2023-04-01,"total","Combined airport industries",33933,NA
+2023-05-01,"total","Combined airport industries",34089,NA
+2023-06-01,"total","Combined airport industries",33951,NA
+2023-07-01,"total","Combined airport industries",34760,NA
+2023-08-01,"total","Combined airport industries",35246,NA
+2023-09-01,"total","Combined airport industries",35097,NA
+2023-10-01,"total","Combined airport industries",35927,NA
+2023-11-01,"total","Combined airport industries",36133,NA
+2023-12-01,"total","Combined airport industries",35980,NA
+2024-01-01,"total","Combined airport industries",37240,11.39361670306
+2024-02-01,"total","Combined airport industries",37238,11.9165689898717
+2024-03-01,"total","Combined airport industries",36944,11.3710358133365
+2024-04-01,"total","Combined airport industries",36729,8.23976659888603
+2024-05-01,"total","Combined airport industries",36657,7.53322186042418
+2024-06-01,"total","Combined airport industries",36440,7.33115372153987
+2024-07-01,"total","Combined airport industries",36650,5.43728423475258
+2024-08-01,"total","Combined airport industries",36664,4.02315156329796
+2024-09-01,"total","Combined airport industries",36488,3.96330170669859
+2024-10-01,"total","Combined airport industries",36804,2.44106104044313
+2024-11-01,"total","Combined airport industries",36912,2.15592394763788
+2024-12-01,"total","Combined airport industries",36776,2.21234018899388
+2025-01-01,"total","Combined airport industries",37147,-0.249731471535986
+2025-02-01,"total","Combined airport industries",37047,-0.512916912830974
+2025-03-01,"total","Combined airport industries",36888,-0.151580770896487
+2025-04-01,"total","Combined airport industries",37478,2.03926052982657
+2025-05-01,"total","Combined airport industries",37435,2.12237771776196
+2025-06-01,"total","Combined airport industries",37114,1.84961580680572
+2025-07-01,"total","Combined airport industries",37389,2.01637107776262
+2025-08-01,"total","Combined airport industries",37281,1.6828496617936
+2025-09-01,"total","Combined airport industries",36600,0.306950230212677
+2025-10-01,"total","Combined airport industries",37395,1.60580371698729
+2025-11-01,"total","Combined airport industries",37589,1.83409189423493
+2025-12-01,"total","Combined airport industries",37331,1.50913639329997
