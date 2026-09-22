@@ -77,9 +77,6 @@
     puma_treated_share <- dplyr::arrange(
         puma_treated_share, dplyr::desc(treated_room_share)
     )
-    print(dplyr::as_tibble(puma_treated_share), n = Inf)
-    saveRDS(puma_treated_share,
-            file.path(clean_path, "puma_treated_room_share.rds"))
 
 # City overlap is independent of hotel assignment. The 15 council districts
 # collectively cover LA City, so dissolve every district into one city boundary.
@@ -128,3 +125,127 @@
     print(dplyr::count(puma_city_share, city_class))
     saveRDS(puma_city_share,
             file.path(clean_path, "puma_la_city_overlap_crosswalk.rds"))
+
+# PUMAs wholly outside LA City are untreated by definition for this analysis.
+# Preserve observed values for every positive overlap, including tiny slivers,
+# so those PUMAs remain available for the CoStar completeness review.
+    non_city_pumas <- puma_city_share$puma[puma_city_share$city_area_km2 == 0]
+    puma_treated_share$total_rooms[
+        puma_treated_share$puma %in% non_city_pumas
+    ] <- NA_real_
+    puma_treated_share$treated_room_share[
+        puma_treated_share$puma %in% non_city_pumas
+    ] <- 0
+    print(dplyr::as_tibble(puma_treated_share), n = Inf)
+    saveRDS(puma_treated_share,
+            file.path(clean_path, "puma_treated_room_share.rds"))
+
+# Two-panel map of PUMAs overlapping LA City ----------------------------
+# Draw the dissolved city first, then overlay only substantive PUMA overlaps.
+    overlapping_pumas <- dplyr::filter(
+        puma_city_share, city_area_share > boundary_tolerance
+    )
+    hotel_room_map <- dplyr::inner_join(
+        la_pumas, dplyr::select(overlapping_pumas, puma), by = "puma"
+    )
+    hotel_room_map <- dplyr::left_join(hotel_room_map, puma_treated_share,
+                                       by = c("puma", "puma_name"))
+    map_bounds <- sf::st_bbox(la_city)
+
+    total_breaks <- unique(pretty(c(0, max(hotel_room_map$total_rooms)), n = 6))
+    total_colors <- rev(grDevices::hcl.colors(length(total_breaks) - 1, "YlOrRd"))
+    total_bin <- cut(hotel_room_map$total_rooms, breaks = total_breaks,
+                     include.lowest = TRUE)
+    total_labels <- paste0(
+        format(head(total_breaks, -1), big.mark = ",", scientific = FALSE), "-",
+        format(tail(total_breaks, -1), big.mark = ",", scientific = FALSE)
+    )
+
+    share_breaks <- seq(0, 1, by = 0.2)
+    share_colors <- rev(grDevices::hcl.colors(length(share_breaks) - 1, "Blues 3"))
+    share_bin <- cut(hotel_room_map$treated_room_share, breaks = share_breaks,
+                     include.lowest = TRUE)
+    share_labels <- paste0(head(share_breaks, -1) * 100, "-",
+                           tail(share_breaks, -1) * 100, "%")
+    share_fill <- share_colors[share_bin]
+    share_fill[is.na(share_fill)] <- "gray90"
+
+    dir.create("figures/raw", recursive = TRUE, showWarnings = FALSE)
+    pdf("figures/raw/PUMA-hotel-room-treatment.pdf", width = 10, height = 6)
+    par(mfrow = c(1, 2), mar = c(1, 1, 3, 1), oma = c(3, 0, 2, 0))
+
+    plot(la_city, col = "gray95", border = "gray55", lwd = 0.8,
+         xlim = map_bounds[c("xmin", "xmax")],
+         ylim = map_bounds[c("ymin", "ymax")], axes = FALSE,
+         main = "Total hotel rooms")
+    plot(sf::st_geometry(hotel_room_map), add = TRUE,
+         col = total_colors[total_bin], border = "white", lwd = 0.5)
+    legend("bottomleft", legend = total_labels, fill = total_colors,
+           border = NA, bty = "n", cex = 0.75, title = "Rooms")
+
+    plot(la_city, col = "gray95", border = "gray55", lwd = 0.8,
+         xlim = map_bounds[c("xmin", "xmax")],
+         ylim = map_bounds[c("ymin", "ymax")], axes = FALSE,
+         main = "Share of hotel rooms treated")
+    plot(sf::st_geometry(hotel_room_map), add = TRUE,
+         col = share_fill, border = "white", lwd = 0.5)
+    legend("bottomleft", legend = c(share_labels, "No hotels"),
+           fill = c(share_colors, "gray90"), border = NA, bty = "n",
+           cex = 0.75, title = "Treated share")
+
+    mtext("Hotel rooms and HWMO treatment by PUMA", outer = TRUE,
+          side = 3, line = 0.3)
+    mtext("PUMAs overlapping LA City | Source: CoStar hotel roster; Census boundaries",
+          outer = TRUE, side = 1, line = 1, cex = 0.8)
+    dev.off()
+
+# CoStar reference map for PUMAs crossing the LA City boundary ------------
+# Show only mixed PUMAs: each has substantive area both inside and outside
+# the city. The surrounding map buffer makes their external portions visible.
+    border_pumas <- dplyr::inner_join(
+        la_pumas,
+        dplyr::select(dplyr::filter(puma_city_share, city_class == "Mixed"), puma),
+        by = "puma"
+    )
+    border_pumas_3857 <- sf::st_transform(border_pumas, 3857)
+    la_city_3857 <- sf::st_transform(la_city, 3857)
+    reference_extent <- sf::st_bbox(sf::st_buffer(la_city_3857, 10000))
+    reference_tiles <- maptiles::get_tiles(
+        x = sf::st_as_sfc(reference_extent), provider = "OpenStreetMap",
+        crop = TRUE, zoom = 10
+    )
+
+# Place each code within the portion of its PUMA near LA City, avoiding labels
+# far offshore or outside the useful CoStar comparison extent.
+    label_areas <- suppressWarnings(sf::st_intersection(
+        border_pumas_3857[c("puma")], sf::st_buffer(la_city_3857, 5000)
+    ))
+    label_points <- suppressWarnings(sf::st_point_on_surface(label_areas))
+    label_xy <- sf::st_coordinates(label_points)
+    puma_colors <- grDevices::hcl.colors(nrow(border_pumas_3857), "Dynamic")
+
+    pdf("figures/raw/PUMA-LA-city-border-CoStar-reference.pdf",
+        width = 9, height = 7, useDingbats = FALSE)
+    terra::plotRGB(reference_tiles,
+                   xlim = reference_extent[c("xmin", "xmax")],
+                   ylim = reference_extent[c("ymin", "ymax")])
+    rect(reference_extent["xmin"], reference_extent["ymin"],
+         reference_extent["xmax"], reference_extent["ymax"],
+         col = grDevices::adjustcolor("white", alpha.f = 0.45), border = NA)
+    plot(sf::st_geometry(la_city_3857), add = TRUE,
+         col = grDevices::adjustcolor("lightblue", alpha.f = 0.18),
+         border = "black", lwd = 2.2)
+    for (i in seq_len(nrow(border_pumas_3857))) {
+        plot(sf::st_geometry(border_pumas_3857[i, ]), add = TRUE,
+             col = grDevices::adjustcolor(puma_colors[i], alpha.f = 0.12),
+             border = puma_colors[i], lwd = 1.8)
+    }
+    text(label_xy[, 1], label_xy[, 2], labels = label_points$puma,
+         col = "white", cex = 1.25, font = 2)
+    text(label_xy[, 1], label_xy[, 2], labels = label_points$puma,
+         col = "black", cex = 0.8, font = 2)
+    title("PUMAs crossing the LA City boundary", cex.main = 1.3)
+    legend("bottomleft", legend = c("LA City boundary", "PUMA boundary"),
+           col = c("black", "gray35"), lwd = c(2.2, 1.8),
+           bty = "n", cex = 0.9)
+    dev.off()
