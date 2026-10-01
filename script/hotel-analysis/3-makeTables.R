@@ -1,8 +1,13 @@
 source("script/0-loadFunctions.R")
 source("script/0-loadPackages.R")
+library(flextable)
 
 
 dir <- clean_path
+pal <- met.brewer("Tiepolo")
+allhotels <- read_rds(file.path(clean_path, "HotelsLACInfo_allSizeallTreatStatus.rds"))
+hotels_sf <- allhotels %>%
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326, remove = FALSE)
 
 
 ## ------------------------------------------------------------
@@ -128,10 +133,8 @@ dir <- clean_path
 
 ### make table at council district level
 
-        hotels_sf$treated <- 0
-        hotels_sf$treated[hotels_sf$PropertyID %in% treated$PropertyID]<-1
-        
         cdist <- read_sf(council_district_file)
+        cdist <- st_transform(cdist, st_crs(hotels_sf))
         
         hotels_cd = st_intersection(hotels_sf, cdist)
         
@@ -147,121 +150,7 @@ dir <- clean_path
         ## assume df has:
         ## date, group, adr
         
-        add = read_rds(file.path(clean_path, "AnalysisData_LargeGroups.rds")) %>% filter(date>="2020-01-01")
-        pal_sub = pal[c(1,8,7,5)]
-        
-        pal_sub[2:4]<-add.alpha(pal_sub[2:4], .8)
-        pal_wt = c(3,rep(1,3))
-        
-        
-        df_plot <- add %>%
-          filter(group %in% c("AllTreated", "CG_Small", "CG_Union", "CG_EmbCity")) %>%
-          arrange(group, date) %>%
-          group_by(group) %>%
-          mutate(
-            base_adr = ADR[date == as.Date("2025-04-01")][1],
-            adr_index = 100 * ADR / base_adr,
-            base_revpar = RevPAR[date == as.Date("2025-04-01")][1],
-            revpar_index = 100*RevPAR/base_revpar
-          ) %>%
-          ungroup() %>% filter(date>="2023-01-01")
-        
-        
-        
-        
-        
-        pdf("figures/raw/fig4-ts-revpar-adr.pdf", width = 10, height = 9)
-        par(mfrow = c(2,1))
-        
-        plot(NULL,
-             xlim = range(df_plot$date),
-             ylim = c(90, 110),
-             xlab = "",
-             ylab = "ADR (Index: April 2025 = 100)", axes = F)
-        
-        rect(xleft =as.Date("2025-05-01"), xright = as.Date("2025-09-01"), ybottom = 80, ytop =120 , border = NA, col = add.alpha('gray90', 0.5))
-        rect(xleft =as.Date("2025-09-01"), xright = as.Date("2026-03-01"), ybottom = 80, ytop =120 , border = NA, col = add.alpha('gray70', 0.5))
-        
-        # lines
-        gg = 0
-        for(g in unique(df_plot$group)) {
-          gg = gg + 1
-          d <- df_plot[df_plot$group == g, ]
-          
-          lines(d$date, d$adr_index,
-                col = pal_sub[gg],
-                lwd = pal_wt[gg])
-        }
-        
-        # vertical lines
-        abline(v = , lty = 2)
-        abline(v = as.Date("2025-09-01"), lty = 2)
-        abline(h = 100, col = 'gray')
-        
-        axis.Date(
-          side = 1,
-          at = seq(min(df_plot$date), max(df_plot$date), by = "month"),
-          labels = FALSE,
-          tck = -0.02   # short ticks
-        )
-        
-        # yearly labels (with longer ticks)
-        axis.Date(
-          side = 1,
-          at = seq(as.Date("2023-01-01"), max(df_plot$date), by = "year"),
-          format = "%Y",
-          tck = -0.05, cex=1.25   # longer ticks for emphasis
-        )
-        
-        axis(2, las = 2)
-        mtext(side = 3, adj = 0, text = "Average Daily Rate (ADR)",cex=2)
-        
-        
-        
-        
-        plot(NULL,
-             xlim = range(df_plot$date),
-             ylim = c(70, 120),
-             xlab = "",
-             ylab = "RevPAR (Index: April 2025 = 100)", axes = F)
-        
-        rect(xleft =as.Date("2025-05-01"), xright = as.Date("2025-09-01"), ybottom = 70, ytop =120 , border = NA, col = add.alpha('gray90', 0.5))
-        rect(xleft =as.Date("2025-09-01"), xright = as.Date("2026-03-01"), ybottom = 70, ytop =120 , border = NA, col = add.alpha('gray70', 0.5))
-        
-        # lines
-        gg = 0
-        for(g in unique(df_plot$group)) {
-          gg = gg + 1
-          d <- df_plot[df_plot$group == g, ]
-          
-          lines(d$date, d$revpar_index,
-                col = pal_sub[gg],
-                lwd = pal_wt[gg])
-        }
-        
-        # vertical lines
-        abline(v = , lty = 2)
-        abline(v = as.Date("2025-09-01"), lty = 2)
-        abline(h = 100, col = 'gray')
-        
-        axis.Date(
-          side = 1,
-          at = seq(min(df_plot$date), max(df_plot$date), by = "month"),
-          labels = FALSE,
-          tck = -0.02   # short ticks
-        )
-        
-        # yearly labels (with longer ticks)
-        axis.Date(
-          side = 1,
-          at = seq(as.Date("2023-01-01"), max(df_plot$date), by = "year"),
-          format = "%Y",
-          tck = -0.05 ,cex=1.25  # longer ticks for emphasis
-        )
-        
-        axis(2, las = 2)
-        mtext(side = 3, adj = 0, text = "Revenue Per Available Room (RevPAR)",cex=2)
-      dev.off()
+        source("script/hotel-analysis/MakeIndexedPlots.R")
         
         #################################################################################################################################################      
         ####### APPENDIX TABLE

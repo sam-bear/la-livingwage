@@ -1,5 +1,6 @@
 source("script/0-loadFunctions.R")
 source("script/0-loadPackages.R")
+pal <- met.brewer("Tiepolo")
 
 
 
@@ -69,7 +70,7 @@ source("script/0-loadPackages.R")
         m_adr <- feols(
               log(ADR) ~ treated * post | label + date,
               data = df,
-              weights = df$Rooms
+              weights = df$Rooms, vcov = ~label
             )
 
             
@@ -77,7 +78,7 @@ source("script/0-loadPackages.R")
       m_revpar <- feols(
         log(RevPAR) ~ treated * post | label + date,
         data = df,
-        weights = df$Rooms
+        weights = df$Rooms, vcov = ~label
       )
         
 
@@ -85,13 +86,13 @@ source("script/0-loadPackages.R")
     #anticipatory
         m_adr2 <- feols(
           log(ADR) ~ i(period, treated, ref = "pre") | label + date,
-          data = df, weights = df$Rooms
+          data = df, weights = df$Rooms, vcov = ~label
         )
         
         
         m_revpar2 <- feols(
           log(RevPAR) ~ i(period, treated, ref = "pre") | label + date,
-          data = df, weights = df$Rooms
+          data = df, weights = df$Rooms, vcov = ~label
         )
         
         
@@ -847,7 +848,7 @@ par(op)
             df$event_time_binned[df$event_time <= -6] <- -6
             df$event_time_binned[df$event_time >= 6]  <- 6
             
-            df = df %>% filter(event_time<5)
+            # Retain all available post months within the event window.
             
             df$post_group <- with(df,
                                   ifelse(event_time < 0, event_time,
@@ -944,10 +945,10 @@ par(op)
              abline(v = 0, lty = 2, col = "gray40")
              
              # x-axis at every month, labels only at selected values
-             axis(1, at = seq(min(xlim), max(xlim), by = 1),
-                  labels = ifelse(seq(min(xlim), max(xlim), by = 1) %% 2 == 0,
-                                  seq(min(xlim), max(xlim), by = 1), ""))
-             
+             axis(1, at = seq(min(xlim), max(xlim), by = 1), labels = FALSE)
+             label_months <- unique(c(seq(min(xlim), max(xlim), by = 4), max(xlim)))
+             axis(1, at = label_months, labels = label_months, tick = FALSE)
+
              axis(2, las = 2)
              
              # CIs
@@ -980,6 +981,9 @@ par(op)
            par(op)
            
            dev.off()
+           dir.create("output/hotel-time-series", recursive = TRUE, showWarnings = FALSE)
+           write.csv(all_df, "output/hotel-time-series/event-study-estimates.csv", row.names = FALSE)
+
            
            
 

@@ -1,6 +1,21 @@
 source("script/0-loadFunctions.R")
 source("script/0-loadPackages.R")
 
+# Serialize locally before replacing SharePoint-backed outputs. This prevents a
+# sync timeout from leaving a truncated RDS at the canonical path.
+write_rds_atomic <- function(x, path) {
+  local_tmp <- tempfile(fileext = ".rds")
+  remote_tmp <- paste0(path, ".tmp")
+  on.exit(unlink(local_tmp), add = TRUE)
+  readr::write_rds(x, local_tmp)
+  copied <- file.copy(local_tmp, remote_tmp, overwrite = TRUE)
+  if (!copied || !file.rename(remote_tmp, path)) {
+    unlink(remote_tmp)
+    stop("Could not atomically write ", path)
+  }
+  invisible(path)
+}
+
   #directory with data
       dir <- costar_downloads_path
 
@@ -35,7 +50,7 @@ source("script/0-loadPackages.R")
     hi$treated = 0
     hi$treated[substr(hi$label,1,1)=="T"]<-1
     hi$group <- as.numeric(substr(hi$label,2,4))
-    write_rds(hi, file = file.path(clean_path, "AnalysisHotelInfo_DataReported.rds"))
+    write_rds_atomic(hi, file.path(clean_path, "AnalysisHotelInfo_DataReported.rds"))
     
     
   #now bring in the aggregated group hotel info
@@ -49,6 +64,8 @@ source("script/0-loadPackages.R")
     
     
     #check inside city of LA:
+
+        lac <- read_sf(council_district_file)
     
         # 1) make sf points from lat/lon
           hi_ag_sf <- hi_ag %>%
@@ -62,7 +79,7 @@ source("script/0-loadPackages.R")
         
         # if lac has one polygon row:
         hi_ag_sf <- hi_ag_sf %>%
-          mutate(in_la_city = inside_mat[, 1])
+          mutate(in_la_city = rowSums(inside_mat) > 0)
         
         
         hi_ag <- data.frame(hi_ag_sf) %>% dplyr::select(-geometry)
@@ -78,7 +95,7 @@ source("script/0-loadPackages.R")
         
         
     
-    write_rds(hi_ag, file = file.path(clean_path, "AnalysisHotelInfo_aggData_includeNoDataReported.rds"))
+    write_rds_atomic(hi_ag, file.path(clean_path, "AnalysisHotelInfo_aggData_includeNoDataReported.rds"))
     #this is the full list of hotels regardless of whether they report data
     
 
@@ -119,7 +136,7 @@ source("script/0-loadPackages.R")
     
     # if lac has one polygon row:
     hotels_sf <- hotels_sf %>%
-      mutate(in_la_city = inside_mat[, 1])
+      mutate(in_la_city = rowSums(inside_mat) > 0)
     
     
     allhotels <- data.frame(hotels_sf) %>% dplyr::select(-geometry)
@@ -130,7 +147,7 @@ source("script/0-loadPackages.R")
     allhotels$treated = 0
     allhotels$treated[allhotels$PropertyID %in% hi_ag$PropertyID[hi_ag$label=="AllTreated"]]<-1
     
-    write_rds(allhotels, file = file.path(clean_path, "HotelsLACInfo_allSizeallTreatStatus.rds"))
+    write_rds_atomic(allhotels, file.path(clean_path, "HotelsLACInfo_allSizeallTreatStatus.rds"))
     
    
     
@@ -188,18 +205,18 @@ source("script/0-loadPackages.R")
           covar <- read_rds(file.path(clean_path, "AnalysisHotelInfo_aggData_includeNoDataReported.rds")) %>%  sf::st_drop_geometry() %>%
             rename(group = label) %>%
             mutate(
-              income  = X2024.Avg.HH.Inc.1m.,
-              homeval = X2024.Median.Home.Value.1m.,
-              hisp  = X2024.Hisp.Lat.Amer.Indian.and.Alaska.Nat.1m. +
-                X2024.Hisp.Lat.Black.or.Afr.Amer.1m. +
-                X2024.Hisp.Lat.Two.or.More.Races.1m. +
-                X2024.Hisp.Lat.Asian.1m. +
-                X2024.Hisp.Lat.Nat.Haw.n.and.Pac.Isldr.1m. +
-                X2024.Hisp.Lat.White.1m.,
-              black = X2024.Not.Hisp.Lat..Blk.or.Afr.Amer.1m.,
-              mult  = X2024.Not.Hisp.Lat.Two.or.More.Races.1m.,
-              asian = X2024.Not.Hisp.Lat.Asian.1m.,
-              white = X2024.Not.Hisp.Lat..White.1m.,
+              income  = X2025.Avg.HH.Inc.1m.,
+              homeval = X2025.Median.Home.Value.1m.,
+              hisp  = X2025.Hisp.Lat.Amer.Indian.and.Alaska.Nat.1m. +
+                X2025.Hisp.Lat.Black.or.Afr.Amer.1m. +
+                X2025.Hisp.Lat.Two.or.More.Races.1m. +
+                X2025.Hisp.Lat.Asian.1m. +
+                X2025.Hisp.Lat.Nat.Haw.n.and.Pac.Isldr.1m. +
+                X2025.Hisp.Lat.White.1m.,
+              black = X2025.Not.Hisp.Lat..Blk.or.Afr.Amer.1m.,
+              mult  = X2025.Not.Hisp.Lat.Two.or.More.Races.1m.,
+              asian = X2025.Not.Hisp.Lat.Asian.1m.,
+              white = X2025.Not.Hisp.Lat..White.1m.,
               tot = hisp + black + asian + mult + white,
               share_hisp  = hisp / tot,
               share_black = black / tot,
@@ -277,7 +294,7 @@ source("script/0-loadPackages.R")
           add = left_join(add, covar_group)
           
           
-          write_rds(add, file = file.path(clean_path, "AnalysisData_LargeGroups.rds"))
+          write_rds_atomic(add, file.path(clean_path, "AnalysisData_LargeGroups.rds"))
 
           
           
@@ -307,18 +324,18 @@ source("script/0-loadPackages.R")
           
           covar <- read_rds(file.path(clean_path, "AnalysisHotelInfo_DataReported.rds")) %>%  sf::st_drop_geometry() %>%
             mutate(
-              income  = X2024.Avg.HH.Inc.1m.,
-              homeval = X2024.Median.Home.Value.1m.,
-              hisp  = X2024.Hisp.Lat.Amer.Indian.and.Alaska.Nat.1m. +
-                X2024.Hisp.Lat.Black.or.Afr.Amer.1m. +
-                X2024.Hisp.Lat.Two.or.More.Races.1m. +
-                X2024.Hisp.Lat.Asian.1m. +
-                X2024.Hisp.Lat.Nat.Haw.n.and.Pac.Isldr.1m. +
-                X2024.Hisp.Lat.White.1m.,
-              black = X2024.Not.Hisp.Lat..Blk.or.Afr.Amer.1m.,
-              mult  = X2024.Not.Hisp.Lat.Two.or.More.Races.1m.,
-              asian = X2024.Not.Hisp.Lat.Asian.1m.,
-              white = X2024.Not.Hisp.Lat..White.1m.,
+              income  = X2025.Avg.HH.Inc.1m.,
+              homeval = X2025.Median.Home.Value.1m.,
+              hisp  = X2025.Hisp.Lat.Amer.Indian.and.Alaska.Nat.1m. +
+                X2025.Hisp.Lat.Black.or.Afr.Amer.1m. +
+                X2025.Hisp.Lat.Two.or.More.Races.1m. +
+                X2025.Hisp.Lat.Asian.1m. +
+                X2025.Hisp.Lat.Nat.Haw.n.and.Pac.Isldr.1m. +
+                X2025.Hisp.Lat.White.1m.,
+              black = X2025.Not.Hisp.Lat..Blk.or.Afr.Amer.1m.,
+              mult  = X2025.Not.Hisp.Lat.Two.or.More.Races.1m.,
+              asian = X2025.Not.Hisp.Lat.Asian.1m.,
+              white = X2025.Not.Hisp.Lat..White.1m.,
               tot = hisp + black + asian + mult + white,
               share_hisp  = hisp / tot,
               share_black = black / tot,
@@ -415,7 +432,7 @@ source("script/0-loadPackages.R")
           
           
           
-          write_rds(hd, file = file.path(clean_path, "AnalysisData_SubGroups.rds"))
+          write_rds_atomic(hd, file.path(clean_path, "AnalysisData_SubGroups.rds"))
           
 
           

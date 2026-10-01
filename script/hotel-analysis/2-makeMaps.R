@@ -76,7 +76,10 @@ source("script/0-loadPackages.R")
 
             legend(
               x = -13210000, y = 4015000,xpd = T,
-              legend = c("Hotels subject to ordinance (135)", "Hotels not subject to ordinance (302)"),
+              legend = c(
+                sprintf("Hotels subject to ordinance (%s)", sum(hotels_3857$treated == 1)),
+                sprintf("Hotels not subject to ordinance (%s)", sum(hotels_3857$treated == 0))
+              ),
               pch = 21,
               pt.bg = c(add.alpha(pal[1], 0.6), add.alpha(pal[7], 0.6)),
               col = "white",        # border color
@@ -144,10 +147,6 @@ source("script/0-loadPackages.R")
               
               
               
-              plot(st_geometry(treated_3857_sub), add = TRUE, pch = 21, cex = tr, bg = add.alpha(pal[1], 0.6), col= add.alpha('white', .75) )
-              
-        
-              
             title("Downtown", cex.main = 2,  adj =1, line = 2)
               
       
@@ -207,10 +206,6 @@ source("script/0-loadPackages.R")
               plot(st_geometry(filter(hotels_3857, treated == 0)),cex = hotels_3857$hr[hotels_3857$treated==0], add = TRUE, pch = 21,  bg = add.alpha(pal[7], 0.6), col = add.alpha('white', .75))
               plot(st_geometry(filter(hotels_3857, treated == 1)), add = TRUE, pch = 21, cex = hotels_3857$hr[hotels_3857$treated==1], bg = add.alpha(pal[1], 0.6), col= add.alpha('white', .75) )
              
-      
-      
-      
-      plot(st_geometry(treated_3857_sub), add = TRUE, pch = 21, cex = tr, bg = add.alpha(pal[1], 0.6), col= add.alpha('white', .75) )
       
       
       

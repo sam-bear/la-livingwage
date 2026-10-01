@@ -1,11 +1,13 @@
 
+source("script/0-loadFunctions.R")
+source("script/0-loadPackages.R")
+
 ############# Calculations for report #############
-hotels_3857$treat = 0
-treated_3857$treat = 1
-allhotels = rbind(hotels_3857[,intersect(names(hotels_3857), names(treated_3857))], treated_3857[,intersect(names(hotels_3857), names(treated_3857))])
+allhotels <- read_rds(file.path(clean_path, "HotelsLACInfo_allSizeallTreatStatus.rds")) %>%
+  mutate(treat = treated)
 
 smz =    allhotels %>% group_by(treat) %>% 
-  summarise(rooms = sum(Rooms), count = n()) %>% as.data.frame() %>% dplyr::select(-geometry)
+  summarise(rooms = sum(Rooms), count = n()) %>% as.data.frame() %>% dplyr::select(-any_of("geometry"))
 
 smz$share_room = smz$room/sum(smz$room)    
 smz$share_count = smz$count/sum(smz$count)
@@ -15,7 +17,7 @@ smz$share_count = smz$count/sum(smz$count)
 ########    Make table with basic summary #####
 allhotels$restaurant_num <- ifelse(allhotels$Restaurant == "Yes", 1, 0)
 
-summary_tab_small <- allhotels %>% as.data.frame() %>% dplyr::select(-geometry) %>% 
+summary_tab_small <- allhotels %>% as.data.frame() %>% dplyr::select(-any_of("geometry")) %>%
   group_by(treat) %>%
   summarise(
     `Hotels` = n(),
@@ -47,9 +49,9 @@ ft <- autofit(ft)
 
 
 
-summary_tab_small <- allhotels %>% as.data.frame() %>% dplyr::select(-geometry) %>% mutate(income = X2024.Avg.HH.Inc.1m., homeval = X2024.Median.Home.Value.1m.) %>% 
-  mutate(hisp = X2024.Hisp.Lat.Amer.Indian.and.Alaska.Nat.1m. + X2024.Hisp.Lat.Black.or.Afr.Amer.1m. + X2024.Hisp.Lat.Two.or.More.Races.1m. + X2024.Hisp.Lat.Asian.1m.+X2024.Hisp.Lat.Nat.Haw.n.and.Pac.Isldr.1m.+X2024.Hisp.Lat.White.1m.,
-         black = X2024.Not.Hisp.Lat..Blk.or.Afr.Amer.1m., mult = X2024.Not.Hisp.Lat.Two.or.More.Races.1m.,asian = X2024.Not.Hisp.Lat.Asian.1m., white = X2024.Not.Hisp.Lat..White.1m.,
+summary_tab_small <- allhotels %>% as.data.frame() %>% dplyr::select(-any_of("geometry")) %>% mutate(income = X2025.Avg.HH.Inc.1m., homeval = X2025.Median.Home.Value.1m.) %>%
+  mutate(hisp = X2025.Hisp.Lat.Amer.Indian.and.Alaska.Nat.1m. + X2025.Hisp.Lat.Black.or.Afr.Amer.1m. + X2025.Hisp.Lat.Two.or.More.Races.1m. + X2025.Hisp.Lat.Asian.1m.+X2025.Hisp.Lat.Nat.Haw.n.and.Pac.Isldr.1m.+X2025.Hisp.Lat.White.1m.,
+         black = X2025.Not.Hisp.Lat..Blk.or.Afr.Amer.1m., mult = X2025.Not.Hisp.Lat.Two.or.More.Races.1m.,asian = X2025.Not.Hisp.Lat.Asian.1m., white = X2025.Not.Hisp.Lat..White.1m.,
          tot = hisp + black + asian + mult + white, share_hisp = hisp/tot, share_black = black/tot, share_white = white/tot, share_asian = asian/tot) %>% 
   
   group_by(treat) %>%
@@ -86,6 +88,3 @@ write_xlsx(summary_tab_small,  "tables/hotel_treat_char.xlsx")
 
 
 #######################
-
-
-

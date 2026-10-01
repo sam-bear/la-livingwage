@@ -1,5 +1,6 @@
 source("script/0-loadFunctions.R")
 source("script/0-loadPackages.R")
+pal <- met.brewer("Tiepolo")
 
 
 
