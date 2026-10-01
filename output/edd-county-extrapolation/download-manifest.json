@@ -1,0 +1,12 @@
+[
+  {
+    "file": "inputs/qcew-county/qcew-2023-2025q4.csv",
+    "sha256": "75ef82b7d114ccf502491245b8af9fcad857d405beaa2fe370b7c4b4528bfed9",
+    "retrieved": "2026-09-26"
+  },
+  {
+    "file": "inputs/qcew-county/qcew-2026-q1.csv",
+    "sha256": "e082df0249b45287aedc56c21d01c5371705f03cd9ba5015e59053d6d4ed17c4",
+    "retrieved": "2026-09-26"
+  }
+]

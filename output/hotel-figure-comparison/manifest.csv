@@ -1,0 +1,28 @@
+page,title,previous,updated
+1,Hotel performance: ADR and RevPAR time series,archive:pre-Sep2026-costar-rerun:/figures/raw/fig4-ts-revpar-adr.pdf,figures/raw/fig4-ts-revpar-adr.pdf
+2,Hotel performance: pooled policy estimates,archive:pre-Sep2026-costar-rerun:/figures/raw/fig4-pooled-est.pdf,figures/raw/fig4-pooled-est.pdf
+3,Hotel performance: differences across groups,archive:pre-Sep2026-costar-rerun:/figures/raw/fig5-impact-hetero.pdf,figures/raw/fig5-impact-hetero.pdf
+4,Hotel performance: year-over-year changes,archive:pre-Sep2026-costar-rerun:/figures/raw/figX_ADRRevPAR_yoy_full_plot.pdf,figures/raw/figX_ADRRevPAR_yoy_full_plot.pdf
+5,Hotel room prices: year-over-year changes,archive:pre-Sep2026-costar-rerun:/figures/raw/ADR_yoy_sep25mar26_plot.pdf,figures/raw/ADR_yoy_sep25mar26_plot.pdf
+6,Hotel industry background,archive:pre-Sep2026-costar-rerun:/figures/raw/fig1_IndusryBackgroundTS_plot.pdf,figures/raw/fig1_IndusryBackgroundTS_plot.pdf
+7,Hotel tax revenue: citywide TOT,archive:pre-Sep2026-costar-rerun:/figures/raw/TOT-raw.pdf,figures/raw/TOT-raw.pdf
+8,Hotel sample: pre-policy comparison,archive:pre-Sep2026-costar-rerun:/figures/raw/fig2-barplot-summary.pdf,figures/raw/fig2-barplot-summary.pdf
+9,Sensitivity: four-group pooled estimates,archive:pre-Sep2026-costar-rerun:/figures/raw/figAX-4group-pooled-est.pdf,figures/raw/figAX-4group-pooled-est.pdf
+10,Hotel performance: event-study estimates,archive:pre-Sep2026-costar-rerun:/figures/raw/figAX-eventStudyReg.pdf,figures/raw/figAX-eventStudyReg.pdf
+11,Sensitivity: alternative controls,archive:pre-Sep2026-costar-rerun:/figures/raw/figAX-pooled-est-byControls.pdf,figures/raw/figAX-pooled-est-byControls.pdf
+12,Sensitivity: treatment and control groups,archive:pre-Sep2026-costar-rerun:/figures/raw/figAX-pooled-est-byTreatControls.pdf,figures/raw/figAX-pooled-est-byTreatControls.pdf
+13,Sensitivity: alternative hotel outcomes,archive:pre-Sep2026-costar-rerun:/figures/raw/FigAX-differentOutcomes.pdf,figures/raw/FigAX-differentOutcomes.pdf
+14,Hotel employment: index,archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-hotel-employment-index.pdf,figures/raw/EDD-hotel-employment-index.pdf
+15,Hotel employment: quarterly outcomes,archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-hotel-quarterly-outcomes-index.pdf,figures/raw/EDD-hotel-quarterly-outcomes-index.pdf
+16,Hotel employment: regression estimates,archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-hotel-regression-coefficients.pdf,figures/raw/EDD-hotel-regression-coefficients.pdf
+17,Hotel employment: event study,archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-hotel-employment-event-study.pdf,figures/raw/EDD-hotel-employment-event-study.pdf
+18,Los Angeles hotel employment: allocated series,archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LA-city-hotel-employment-allocated.pdf,figures/raw/EDD-LA-city-hotel-employment-allocated.pdf
+19,Hotel locations: treated and comparison hotels,archive:pre-Sep2026-costar-rerun:/figures/raw/Map_LA_treatedVSuntreated_raw.pdf,figures/raw/Map_LA_treatedVSuntreated_raw.pdf
+20,Hotel locations: analysis sample,archive:pre-Sep2026-costar-rerun:/figures/raw/Map_LA_treatedVSuntreated_analysisSample_raw.pdf,figures/raw/Map_LA_treatedVSuntreated_analysisSample_raw.pdf
+21,Hotel locations: downtown,archive:pre-Sep2026-costar-rerun:/figures/raw/Map_LA_treatedVSuntreated_downtown_raw.pdf,figures/raw/Map_LA_treatedVSuntreated_downtown_raw.pdf
+22,Hotel locations: westside,archive:pre-Sep2026-costar-rerun:/figures/raw/Map_LA_treatedVSuntreated_westside_raw.pdf,figures/raw/Map_LA_treatedVSuntreated_westside_raw.pdf
+23,Hotel locations: LAX area,archive:pre-Sep2026-costar-rerun:/figures/raw/Map_LA_treatedVSuntreated_lax_raw.pdf,figures/raw/Map_LA_treatedVSuntreated_lax_raw.pdf
+24,Employment geography: city boundary and hotels,archive:pre-Sep2026-costar-rerun:/figures/raw/PUMA-LA-city-border-CoStar-reference.pdf,figures/raw/PUMA-LA-city-border-CoStar-reference.pdf
+25,Employment geography: countywide treatment,archive:pre-Sep2026-costar-rerun:/figures/raw/PUMA-countywide-hotel-treatment.pdf,figures/raw/PUMA-countywide-hotel-treatment.pdf
+26,Employment geography: hotel room treatment,archive:pre-Sep2026-costar-rerun:/figures/raw/PUMA-hotel-room-treatment.pdf,figures/raw/PUMA-hotel-room-treatment.pdf
+27,Employment geography: treatment distributions,archive:pre-Sep2026-costar-rerun:/figures/raw/PUMA-hotel-room-treatment-histograms.pdf,figures/raw/PUMA-hotel-room-treatment-histograms.pdf

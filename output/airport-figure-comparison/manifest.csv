@@ -1,0 +1,8 @@
+page,title,previous,updated
+1,LAX passenger volume: year-over-year change,archive:pre-Sep2026-costar-rerun:/figures/raw/FigX1-yoy-passengers-lax.pdf,figures/raw/FigX1-yoy-passengers-lax.pdf
+2,LAX passenger volume: monthly levels,archive:pre-Sep2026-costar-rerun:/figures/raw/FigX1-levels-passengers-lax.pdf,figures/raw/FigX1-levels-passengers-lax.pdf
+3,LAX fares: quarterly levels,archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax.pdf,output/airport-fare-audit/extended-public/Flight-Prices-lax.pdf
+4,LAX fares: year-over-year changes,archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax-yoy.pdf,output/airport-fare-audit/extended-public/Flight-Prices-lax-yoy.pdf
+5,LAX fares: recent year-over-year changes,archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax-yoy-2025.pdf,output/airport-fare-audit/extended-public/Flight-Prices-lax-yoy-2025-onward.pdf
+6,LAX-area employment: unchanged through December 2025,archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LAX-PUMA-airport-employment.pdf,figures/raw/EDD-LAX-PUMA-airport-employment.pdf
+7,Airport-area employment: LAX and Burbank,archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LAX-vs-Burbank-PUMA-airport-employment.pdf,figures/raw/EDD-LAX-vs-Burbank-PUMA-airport-employment.pdf

@@ -1,0 +1,348 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.15)  25 SEP 2026 14:14
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**output/airport-figure-comparison/airport-figures-before-after.tex
+(./output/airport-figure-comparison/airport-figures-before-after.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24>
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count193
+\Gm@cntv=\count194
+\c@Gm@tempcnt=\count195
+\Gm@bindingoffset=\dimen139
+\Gm@wd@mp=\dimen140
+\Gm@odd@mp=\dimen141
+\Gm@even@mp=\dimen142
+\Gm@layoutwidth=\dimen143
+\Gm@layoutheight=\dimen144
+\Gm@layouthoffset=\dimen145
+\Gm@layoutvoffset=\dimen146
+\Gm@dimlist=\toks17
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen147
+\Gin@req@width=\dimen148
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/helvet.sty
+Package: helvet 2020/03/25 PSNFSS-v9.3 (WaS) 
+)
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 9.
+
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/t1phv.fd
+File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count196
+\l__pdf_internal_box=\box50
+)
+No file airport-figures-before-after.aux.
+\openout1 = `airport-figures-before-after.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: custom
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(32.52127pt, 1380.35745pt, 32.52127pt)
+* v-part:(T,H,B)=(32.52127pt, 802.19745pt, 32.52127pt)
+* \paperwidth=1445.4pt
+* \paperheight=867.23999pt
+* \textwidth=1380.35745pt
+* \textheight=802.19745pt
+* \oddsidemargin=-39.74872pt
+* \evensidemargin=-39.74872pt
+* \topmargin=-76.74872pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/usr/local/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count197
+\scratchdimen=\dimen149
+\scratchbox=\box51
+\nofMPsegments=\count198
+\nofMParguments=\count199
+\everyMPshowfont=\toks18
+\MPscratchCnt=\count266
+\MPscratchDim=\dimen150
+\MPnumerator=\count267
+\makeMPintoPDFobject=\count268
+\everyMPtoPDFconversion=\toks19
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/grfext/grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)) (/usr/local/texlive/2022/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 12.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 12.
+<archive:pre-Sep2026-costar-rerun:/figures/raw/FigX1-yoy-passengers-lax.pdf, id
+=1, 650.43pt x 578.16pt>
+File: archive:pre-Sep2026-costar-rerun:/figures/raw/FigX1-yoy-passengers-lax.pd
+f Graphic file (type pdf)
+<use archive:pre-Sep2026-costar-rerun:/figures/raw/FigX1-yoy-passengers-lax.pdf
+>
+Package pdftex.def Info: archive:pre-Sep2026-costar-rerun:/figures/raw/FigX1-yo
+y-passengers-lax.pdf  used on input line 14.
+(pdftex.def)             Requested size: 679.38882pt x 603.90117pt.
+<figures/raw/FigX1-yoy-passengers-lax.pdf, id=2, 650.43pt x 578.16pt>
+File: figures/raw/FigX1-yoy-passengers-lax.pdf Graphic file (type pdf)
+<use figures/raw/FigX1-yoy-passengers-lax.pdf>
+Package pdftex.def Info: figures/raw/FigX1-yoy-passengers-lax.pdf  used on inpu
+t line 14.
+(pdftex.def)             Requested size: 679.38882pt x 603.90117pt.
+
+[1
+
+{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./archi
+ve:pre-Sep2026-costar-rerun:/figures/raw/FigX1-yoy-passengers-lax.pdf> <./figur
+es/raw/FigX1-yoy-passengers-lax.pdf>]
+<archive:pre-Sep2026-costar-rerun:/figures/raw/FigX1-levels-passengers-lax.pdf,
+ id=26, 650.43pt x 578.16pt>
+File: archive:pre-Sep2026-costar-rerun:/figures/raw/FigX1-levels-passengers-lax
+.pdf Graphic file (type pdf)
+<use archive:pre-Sep2026-costar-rerun:/figures/raw/FigX1-levels-passengers-lax.
+pdf>
+Package pdftex.def Info: archive:pre-Sep2026-costar-rerun:/figures/raw/FigX1-le
+vels-passengers-lax.pdf  used on input line 21.
+(pdftex.def)             Requested size: 679.38882pt x 603.90117pt.
+<figures/raw/FigX1-levels-passengers-lax.pdf, id=27, 650.43pt x 578.16pt>
+File: figures/raw/FigX1-levels-passengers-lax.pdf Graphic file (type pdf)
+<use figures/raw/FigX1-levels-passengers-lax.pdf>
+Package pdftex.def Info: figures/raw/FigX1-levels-passengers-lax.pdf  used on i
+nput line 21.
+(pdftex.def)             Requested size: 679.38882pt x 603.90117pt.
+ [2 <./archive:pre-Sep2026-costar-rerun:/figures/raw/FigX1-levels-passengers-la
+x.pdf> <./figures/raw/FigX1-levels-passengers-lax.pdf>]
+<archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax.pdf, id=49, 43
+3.62pt x 650.43pt>
+File: archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax.pdf Graph
+ic file (type pdf)
+<use archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax.pdf>
+Package pdftex.def Info: archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-P
+rices-lax.pdf  used on input line 28.
+(pdftex.def)             Requested size: 457.74269pt x 686.61403pt.
+<output/airport-fare-audit/extended-public/Flight-Prices-lax.pdf, id=50, 433.62
+pt x 650.43pt>
+File: output/airport-fare-audit/extended-public/Flight-Prices-lax.pdf Graphic f
+ile (type pdf)
+<use output/airport-fare-audit/extended-public/Flight-Prices-lax.pdf>
+Package pdftex.def Info: output/airport-fare-audit/extended-public/Flight-Price
+s-lax.pdf  used on input line 28.
+(pdftex.def)             Requested size: 457.74269pt x 686.61403pt.
+ [3 <./archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax.pdf> <./
+output/airport-fare-audit/extended-public/Flight-Prices-lax.pdf>]
+<archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax-yoy.pdf, id=66
+, 289.08pt x 650.43pt>
+File: archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax-yoy.pdf G
+raphic file (type pdf)
+<use archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax-yoy.pdf>
+Package pdftex.def Info: archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-P
+rices-lax-yoy.pdf  used on input line 35.
+(pdftex.def)             Requested size: 305.16179pt x 686.61403pt.
+<output/airport-fare-audit/extended-public/Flight-Prices-lax-yoy.pdf, id=67, 28
+9.08pt x 650.43pt>
+File: output/airport-fare-audit/extended-public/Flight-Prices-lax-yoy.pdf Graph
+ic file (type pdf)
+<use output/airport-fare-audit/extended-public/Flight-Prices-lax-yoy.pdf>
+Package pdftex.def Info: output/airport-fare-audit/extended-public/Flight-Price
+s-lax-yoy.pdf  used on input line 35.
+(pdftex.def)             Requested size: 305.16179pt x 686.61403pt.
+ [4 <./archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax-yoy.pdf>
+ <./output/airport-fare-audit/extended-public/Flight-Prices-lax-yoy.pdf>]
+<archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax-yoy-2025.pdf, 
+id=83, 289.08pt x 650.43pt>
+File: archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax-yoy-2025.
+pdf Graphic file (type pdf)
+<use archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax-yoy-2025.p
+df>
+Package pdftex.def Info: archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-P
+rices-lax-yoy-2025.pdf  used on input line 42.
+(pdftex.def)             Requested size: 305.16179pt x 686.61403pt.
+<output/airport-fare-audit/extended-public/Flight-Prices-lax-yoy-2025-onward.pd
+f, id=84, 289.08pt x 650.43pt>
+File: output/airport-fare-audit/extended-public/Flight-Prices-lax-yoy-2025-onwa
+rd.pdf Graphic file (type pdf)
+<use output/airport-fare-audit/extended-public/Flight-Prices-lax-yoy-2025-onwar
+d.pdf>
+Package pdftex.def Info: output/airport-fare-audit/extended-public/Flight-Price
+s-lax-yoy-2025-onward.pdf  used on input line 42.
+(pdftex.def)             Requested size: 305.16179pt x 686.61403pt.
+
+[5 <./archive:pre-Sep2026-costar-rerun:/figures/raw/Flight-Prices-lax-yoy-2025.
+pdf> <./output/airport-fare-audit/extended-public/Flight-Prices-lax-yoy-2025-on
+ward.pdf>]
+<archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LAX-PUMA-airport-employment.
+pdf, id=100, 650.43pt x 578.16pt>
+File: archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LAX-PUMA-airport-employ
+ment.pdf Graphic file (type pdf)
+<use archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LAX-PUMA-airport-employm
+ent.pdf>
+Package pdftex.def Info: archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LAX-
+PUMA-airport-employment.pdf  used on input line 49.
+(pdftex.def)             Requested size: 679.38882pt x 603.90117pt.
+<figures/raw/EDD-LAX-PUMA-airport-employment.pdf, id=101, 650.43pt x 578.16pt>
+File: figures/raw/EDD-LAX-PUMA-airport-employment.pdf Graphic file (type pdf)
+<use figures/raw/EDD-LAX-PUMA-airport-employment.pdf>
+Package pdftex.def Info: figures/raw/EDD-LAX-PUMA-airport-employment.pdf  used 
+on input line 49.
+(pdftex.def)             Requested size: 679.38882pt x 603.90117pt.
+ [6 <./archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LAX-PUMA-airport-emplo
+yment.pdf> <./figures/raw/EDD-LAX-PUMA-airport-employment.pdf>]
+<archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LAX-vs-Burbank-PUMA-airport-
+employment.pdf, id=123, 722.7pt x 578.16pt>
+File: archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LAX-vs-Burbank-PUMA-air
+port-employment.pdf Graphic file (type pdf)
+<use archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LAX-vs-Burbank-PUMA-airp
+ort-employment.pdf>
+Package pdftex.def Info: archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LAX-
+vs-Burbank-PUMA-airport-employment.pdf  used on input line 56.
+(pdftex.def)             Requested size: 679.33809pt x 543.47047pt.
+<figures/raw/EDD-LAX-vs-Burbank-PUMA-airport-employment.pdf, id=124, 722.7pt x 
+578.16pt>
+File: figures/raw/EDD-LAX-vs-Burbank-PUMA-airport-employment.pdf Graphic file (
+type pdf)
+<use figures/raw/EDD-LAX-vs-Burbank-PUMA-airport-employment.pdf>
+Package pdftex.def Info: figures/raw/EDD-LAX-vs-Burbank-PUMA-airport-employment
+.pdf  used on input line 56.
+(pdftex.def)             Requested size: 679.33809pt x 543.47047pt.
+
+[7 <./archive:pre-Sep2026-costar-rerun:/figures/raw/EDD-LAX-vs-Burbank-PUMA-air
+port-employment.pdf> <./figures/raw/EDD-LAX-vs-Burbank-PUMA-airport-employment.
+pdf>] (output/airport-figure-comparison/airport-figures-before-after.aux) ) 
+Here is how much of TeX's memory you used:
+ 2738 strings out of 478268
+ 50778 string characters out of 5846347
+ 334718 words of memory out of 5000000
+ 20930 multiletter control sequences out of 15000+600000
+ 482004 words of font info for 37 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 60i,12n,67p,478b,243s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/us
+r/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive
+/2022/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2022/t
+exmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
+Output written on output/airport-figure-comparison/airport-figures-before-after
+.pdf (7 pages, 114291 bytes).
+PDF statistics:
+ 160 PDF objects out of 1000 (max. 8388607)
+ 117 compressed objects within 2 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+
