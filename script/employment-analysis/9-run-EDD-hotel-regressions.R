@@ -314,5 +314,5 @@ cat("\nWork-in-progress caveats:\n",
     format(pretrend_long$p, digits = 3), ".\n",
     "- Joint pre-trend p-value (Jan-Jul 2025): ",
     format(pretrend_2025$p, digits = 3), ".\n",
-    "- The five newly identified treated hotels awaiting matched-group assignment",
-    " are already included in the PUMA exposure measure.\n", sep = "")
+    "- The five newly identified treated hotels and their reviewed subgroup",
+    " assignments are included in the PUMA exposure measure.\n", sep = "")
